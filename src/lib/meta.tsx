@@ -19,7 +19,7 @@ export interface TypeMeta {
 
 export const TYPE_META: Record<ClipType, TypeMeta> = {
   text: { label: "Text", Icon: Type, from: "#60a5fa", to: "#2563eb" },
-  link: { label: "Link", Icon: Link2, from: "#a78bfa", to: "#7c3aed" },
+  link: { label: "Link", Icon: Link2, from: "#38bdf8", to: "#0284c7" },
   email: { label: "Email", Icon: Mail, from: "#fbbf24", to: "#d97706" },
   phone: { label: "Phone", Icon: Phone, from: "#f472b6", to: "#be185d" },
   code: { label: "Code", Icon: KeyRound, from: "#34d399", to: "#059669" },

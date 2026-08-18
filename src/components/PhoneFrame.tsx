@@ -33,13 +33,6 @@ export default function PhoneFrame({ children }: PhoneFrameProps) {
           <div className="relative h-full w-full overflow-hidden rounded-[2.6rem] bg-black">
             {children}
 
-            {/* Dynamic Island */}
-            <div className="pointer-events-none absolute left-1/2 top-[11px] z-50 h-[34px] w-[118px] -translate-x-1/2 rounded-full bg-black">
-              <div className="absolute right-3 top-1/2 h-[10px] w-[10px] -translate-y-1/2 rounded-full bg-[#0b1a14] ring-1 ring-emerald-500/20">
-                <div className="absolute inset-[2px] rounded-full bg-[#0e2a1f]" />
-              </div>
-            </div>
-
             {/* home indicator */}
             <div className="pointer-events-none absolute bottom-[7px] left-1/2 z-50 h-[5px] w-[128px] -translate-x-1/2 rounded-full bg-white/40" />
           </div>

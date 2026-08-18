@@ -1,6 +1,7 @@
 import type { Clip, ClipType } from "../types";
 
-const STORAGE_KEY = "ios27-clipboard-v1";
+const STORAGE_KEY = "stash-clips-v1";
+const NOTE_KEY = "stash-note-v1";
 
 /** Detect what kind of content a string holds. */
 export function detectType(raw: string): ClipType {
@@ -73,12 +74,11 @@ export function uid(): string {
 export function loadClips(): Clip[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return seedClips();
+    if (!raw) return [];
     const parsed = JSON.parse(raw) as Clip[];
-    if (!Array.isArray(parsed)) return seedClips();
-    return parsed;
+    return Array.isArray(parsed) ? parsed : [];
   } catch {
-    return seedClips();
+    return [];
   }
 }
 
@@ -90,38 +90,18 @@ export function saveClips(clips: Clip[]): void {
   }
 }
 
-const MIN = 60_000;
-const HOUR = 60 * MIN;
-const DAY = 24 * HOUR;
-const now = Date.now();
+export function loadNote(): string {
+  try {
+    return localStorage.getItem(NOTE_KEY) ?? "";
+  } catch {
+    return "";
+  }
+}
 
-function seedClips(): Clip[] {
-  const make = (
-    content: string,
-    age: number,
-    copiedCount = 1,
-    pinned = false,
-  ): Clip => {
-    const ts = now - age;
-    return {
-      id: uid(),
-      content,
-      type: detectType(content),
-      createdAt: ts,
-      lastUsed: ts,
-      copiedCount,
-      pinned,
-    };
-  };
-
-  return [
-    make("829104", 2 * MIN, 4, true),
-    make("https://www.apple.com/ios/ios-27", 25 * MIN, 2, true),
-    make("kiera.design@studio.co", 3 * HOUR),
-    make("#5E5CE6", 1 * DAY, 3),
-    make("The best time to plant a tree was 20 years ago. The second best time is now.", 2 * DAY),
-    make("+1 (415) 555-0147", 4 * DAY),
-    make("GHX7-9KQ2-MP4D", 5 * DAY),
-    make("Two-factor backup codes are stored offline only.", 6 * DAY),
-  ];
+export function saveNote(note: string): void {
+  try {
+    localStorage.setItem(NOTE_KEY, note);
+  } catch {
+    /* ignore */
+  }
 }
